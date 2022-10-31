@@ -24,9 +24,8 @@ body{
 }
 
 .calculator{
-    width: 25vw;
-    height: 75vh;
-    min-width: 25%;
+    width: 350px;
+    height: 530px;
     max-height: 100vh;
     border: #2C3C40 solid;
     display: flex;
@@ -48,7 +47,7 @@ body{
 .file{
     display: flex;
     justify-content: space-around;
-    height: 16%;
+    height: 16.3%;
     background-color: #333;
 }
 
