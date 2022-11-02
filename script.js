@@ -18,6 +18,7 @@ let operator = {
     operation : ""
 }
 let valueB = ""
+let result = ""
 
 //SELECTORS
 
@@ -27,11 +28,15 @@ const operators = document.querySelectorAll('[type="operator"]')
 console.log(operators)
 const display = document.querySelector('.display')
 const equal = document.querySelector('#equal')
+const clearBtn = document.getElementById('clearBtn')
+const percentBtn = document.getElementById('perBtn')
+const deleteBtn = document.getElementById('delBtn')
 
 //EVENT LISTENERS
 
 numbers.forEach(button=> button.addEventListener('click', numDisplay))
 operators.forEach(button=> button.addEventListener('click', opDisplay))
+deleteBtn.addEventListener('click', deleteLast)
 
 
 //FUNCTIONS
@@ -57,7 +62,6 @@ function opDisplay(e){
         valueA = Number(valueA)
         valueB = Number(valueB)
         console.log(valueA, valueB)
-        let result
         if (operator.operation == 'add'){
             result = add(valueA, valueB)
         }
@@ -70,8 +74,37 @@ function opDisplay(e){
         else if(operator.operation == 'div'){
             result = divide(valueA, valueB)
         }
-        display.innerText = result
+        display.innerText = result.toString()
         valueA = result
         valueB = ""
+        operator.operation = ""
     }
 }
+
+function deleteLast(){
+    console.log(display.innerHTML.charAt(display.innerHTML.length - 1))
+    if (display.innerHTML.charAt(display.innerHTML.length - 1) === operator.text) {
+        operator.operation = ""
+        valueB = ""
+    }
+    /*
+    if (!operator.operation === ""){
+        valueB = display.innerHTML.slice(indexOf(operator.text), display.innerHTML.length - 1)
+    }*/
+    display.innerHTML = display.innerHTML.slice(0, -1)
+    if (operator.operation === ""){
+        valueA = display.innerHTML
+    }
+    console.log(display.innerHTML.charAt(display.innerHTML.length - 1), operator.text)
+    //valueA = valueA.slice(0, -1)
+    console.log(valueA, valueB)
+    console.log(operator)
+}
+
+
+function clearAll(){
+    
+}
+
+
+//TODO -> IMPLEMENTAR SEGUNDA OPERACIÓN / CAMBIAR VALOR DE VALUEB CUANDO SE BORRA
