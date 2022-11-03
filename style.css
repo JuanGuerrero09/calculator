@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
 :root{
-    --background: #DDE3E6;
-    --calculator-color: #2C3C40;
+    --background-dark: #DDE3E6;
+    --calculator-color-dark: #333;
+    --display-color-dark: #444;
+    --background-white: #333;
+    --calculator-color-white: #333;
+    --display-color-white: #444;
 }
 
 
@@ -10,14 +14,14 @@
     box-sizing: border-box;
     font-family: 'Poppins', "sans-serif";
     margin: 0;
-    background-color: var(--background);
 }
 
 body{
-    background-image: url();
+    background-color: #676767;
     background-size: cover;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #DDE3E6;
@@ -27,15 +31,16 @@ body{
     width: 350px;
     height: 530px;
     max-height: 100vh;
-    border: #2C3C40 solid;
+    border: #292C39 solid;
     display: flex;
     flex-direction: column;
     border-radius: 3%;
     overflow: hidden;
 }
 
+
 .display{
-    background-color: #444;
+    background-color: var(--display-color-dark);
     height: 20%;
     display: flex;
     justify-content: right;
@@ -48,14 +53,14 @@ body{
     display: flex;
     justify-content: space-around;
     height: 16.3%;
-    background-color: #333;
+    background-color: var(--calculator-color-dark);
 }
 
 button{
     width: 25%;
     height: auto;
     margin: 0.5%;
-    background-color: #333;
+    background-color: var(--calculator-color-dark);
     border-radius: 4%;
     border: none;
     color: #DDE3E6;
@@ -66,4 +71,80 @@ button{
 button:hover{
     background-color: #444;
     font-size: 1.3rem;
+}
+
+/**Dark mode stuff */
+
+.changeMode{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3px;
+}
+
+#checkbox{
+    opacity: 0;
+    position: absolute;
+}
+
+.label{
+    width: 50px;
+    height: 26px;
+    background-color: black;
+    /*border: #292C39 solid;*/
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    position: relative;
+}
+
+.ball{
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+
+#checkbox:checked + .label .ball{
+    background-color: black;
+    transform: translateX(24px);
+}
+
+#checkbox:checked + .label{
+    background-color: white;
+}
+
+#checkbox:checked + .label i{
+    color: black;
+}
+
+
+i{
+    color: white;
+}
+
+button.lightMode:hover{
+    background-color: #F2F3F4;
+    font-size: 1.3rem;
+}
+
+body.lightMode{
+    background-color: #E2E5DE;
+}
+
+.display.lightMode{
+    background-color: #DDE3E6;
+    color:  var(--calculator-color-dark);
+}
+
+button.lightMode, .file.lightMode{
+    color:var(--calculator-color-dark);
+    background-color: #FFF;
 }

@@ -31,12 +31,15 @@ const equal = document.querySelector('#equal')
 const clearBtn = document.getElementById('clearBtn')
 const percentBtn = document.getElementById('perBtn')
 const deleteBtn = document.getElementById('delBtn')
+const checkBox = document.getElementById('checkbox')
 
 //EVENT LISTENERS
 
 numbers.forEach(button=> button.addEventListener('click', numDisplay))
 operators.forEach(button=> button.addEventListener('click', opDisplay))
 deleteBtn.addEventListener('click', deleteLast)
+clearBtn.addEventListener('click', clearAll)
+checkBox.addEventListener('change', changeMode)
 
 
 //FUNCTIONS
@@ -103,8 +106,31 @@ function deleteLast(){
 
 
 function clearAll(){
+    display.innerHTML = ""
+    valueA = ""
+    operator = {
+        text : "",
+        operation : ""
+    }
+    valueB = ""
+    result = ""
     
 }
 
+const buttons = document.querySelectorAll('button')
+const files = document.querySelectorAll('.file')
 
-//TODO -> IMPLEMENTAR SEGUNDA OPERACIÓN / CAMBIAR VALOR DE VALUEB CUANDO SE BORRA
+console.log(buttons)
+
+
+function changeMode(){
+    console.log('Hola mundo')
+    document.body.classList.toggle('lightMode')
+    display.classList.toggle('lightMode')
+    buttons.forEach(button => button.classList.toggle('lightMode')) 
+    files.forEach(file => file.classList.toggle('lightMode')) 
+
+}
+
+
+//TODO -> IMPLEMENTAR SEGUNDA OPERACIÓN / CAMBIAR VALOR DE VALUEB CUANDO SE BORRA / modo nocturno

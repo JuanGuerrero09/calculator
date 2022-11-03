@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="script.js" defer></script>
     <title>Document</title>
 </head>
@@ -24,7 +25,7 @@
             <button type="number">9</button>
             <button type="number">8</button>
             <button type="number">7</button>
-            <button type="operator" id="div">./.</button>
+            <button type="operator" id="div">/</button>
         </div>
         <div class="third file">
             <button type="number">6</button>
@@ -45,6 +46,15 @@
             <button type="operator" id="sub">-</button>
         </div>
 
+    </div>
+
+    <div class="changeMode">
+        <input type="checkbox" id="checkbox">
+        <label for="checkbox" class="label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <div class="ball"></div>
+        </label>
     </div>
     
 </body>
