@@ -6,9 +6,24 @@ const multiply = (a, b) => a * b
 
 const divide = (a, b) => b === 0? 0 : a/b
 
-const operation = (op, a, b) => op(a, b)
+const operate = (op, a, b) => {
+    a = Number(a)
+    b = Number(b)
+    if (op.operation == 'add'){
+        return add(a, b)
+    }
+    else if (op.operation == 'sub'){
+        return subtract(a, b)
+    }
+    else if (op.operation == 'mult'){
+        return multiply(a, b)
+    }
+    else if(op.operation == 'div'){
+        return divide(a, b)
+    }
+}
 
-console.log(operation(add, '8', '3'))
+
 
 //VARIABLES
 
@@ -60,48 +75,40 @@ function opDisplay(e){
         operator.text = e.target.innerHTML
         operator.operation = e.target.id
         display.innerHTML += e.target.innerText
+        return
     }
     if (e.target.id == 'equal'){
-        valueA = Number(valueA)
-        valueB = Number(valueB)
-        console.log(valueA, valueB)
-        if (operator.operation == 'add'){
-            result = add(valueA, valueB)
-        }
-        else if (operator.operation == 'sub'){
-            result = subtract(valueA, valueB)
-        }
-        else if (operator.operation == 'mult'){
-            result = multiply(valueA, valueB)
-        }
-        else if(operator.operation == 'div'){
-            result = divide(valueA, valueB)
-        }
+        result = operate(operator, valueA, valueB)
         display.innerText = result.toString()
         valueA = result
         valueB = ""
         operator.operation = ""
+        return
     }
+    if (!(valueB == "") && e.target.id != 'equal'){
+        console.log('hola')
+        valueA = operate(operator, valueA, valueB)
+        valueB = ""
+        operator.text = e.target.innerHTML
+        operator.operation = e.target.id
+        display.innerHTML += e.target.innerText
+        console.log(valueA)
+    }
+    console.log(valueA, valueB, e.target.innerText)
 }
 
 function deleteLast(){
-    console.log(display.innerHTML.charAt(display.innerHTML.length - 1))
     if (display.innerHTML.charAt(display.innerHTML.length - 1) === operator.text) {
         operator.operation = ""
         valueB = ""
     }
-    /*
-    if (!operator.operation === ""){
-        valueB = display.innerHTML.slice(indexOf(operator.text), display.innerHTML.length - 1)
-    }*/
     display.innerHTML = display.innerHTML.slice(0, -1)
     if (operator.operation === ""){
         valueA = display.innerHTML
     }
-    console.log(display.innerHTML.charAt(display.innerHTML.length - 1), operator.text)
-    //valueA = valueA.slice(0, -1)
-    console.log(valueA, valueB)
-    console.log(operator)
+    if (!(operator.operation === "")){
+        valueB = display.innerHTML.slice(display.innerHTML.indexOf(operator.text) + 1, display.innerHTML.length)
+    }
 }
 
 
@@ -120,8 +127,6 @@ function clearAll(){
 const buttons = document.querySelectorAll('button')
 const files = document.querySelectorAll('.file')
 
-console.log(buttons)
-
 
 function changeMode(){
     console.log('Hola mundo')
@@ -133,4 +138,4 @@ function changeMode(){
 }
 
 
-//TODO -> IMPLEMENTAR SEGUNDA OPERACIÓN / CAMBIAR VALOR DE VALUEB CUANDO SE BORRA / modo nocturno
+//TODO -> Delete third valueB / modo nocturno
