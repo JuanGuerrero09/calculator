@@ -4,35 +4,41 @@ const subtract = (a, b) => a - b
 
 const multiply = (a, b) => a * b
 
-const divide = (a, b) => b === 0? 0 : a/b
+const divide = (a, b) => b === 0? 'lol' : a/b
 
-const operate = (op, a, b) => {
+const operate = (op, a, b='0') => {
     a = Number(a)
     b = Number(b)
+    if (op.operation == ''){
+        return a
+    }
+    let result
     if (op.operation == 'add'){
-        return add(a, b)
+        result = add(a, b)
     }
     else if (op.operation == 'sub'){
-        return subtract(a, b)
+        result = subtract(a, b)
     }
     else if (op.operation == 'mult'){
-        return multiply(a, b)
+        result = multiply(a, b)
     }
     else if(op.operation == 'div'){
-        return divide(a, b)
+        result = divide(a, b)
     }
+    
+    return Math.round(result * 1000)/1000
 }
 
 
 
 //VARIABLES
 
-let valueA = ""
+let valueA = ''
 let operator = {
     text : "",
     operation : ""
 }
-let valueB = ""
+let valueB = ''
 let result = ""
 
 //SELECTORS
@@ -59,18 +65,36 @@ checkBox.addEventListener('change', changeMode)
 
 //FUNCTIONS
 function numDisplay(e){
+    console.log(typeof valueA)
+    console.log(e.target.id)
     if (operator.operation == "") {
-        valueA += e.target.innerText
-        display.innerHTML = valueA
+        if (display.innerHTML.length == 0 && e.target.id == 'point'){
+            valueA = '0'
+        }
+        if(!(e.target.id == 'point' && !(valueA.indexOf('.')==-1))){
+            console.log(valueA.indexOf('.'))
+            valueA += e.target.innerText
+            display.innerHTML = valueA
+        }
     }
-    else {
-        valueB += e.target.innerText
-        display.innerHTML += e.target.innerText
-        console.log(valueA, valueB, operator)
+    if (operator.operation != "") {
+        console.log(e.target.innerHTML)
+        if(display.innerHTML.charAt(display.innerHTML.length - 1) == ('+' || '-' || '*' || '/') && (e.target.id == 'point')){
+            console.log('holis')
+            return
+        }
+        if(!(e.target.id == 'point' && !(valueB.indexOf('.')==-1))){
+            console.log(valueB.indexOf('.'))
+            valueB += e.target.innerText
+            display.innerHTML += e.target.innerText
+        }
     }
 }
 
 function opDisplay(e){
+     if(display.innerHTML.charAt(display.innerHTML.length - 1) == ('+' || '-' || '*' || '/') && e.target.innerText == ('+' || '-' || '*' || '/')){
+        return
+    }
     if (valueB == "" && e.target.id != 'equal'){
         operator.text = e.target.innerHTML
         operator.operation = e.target.id
@@ -78,23 +102,24 @@ function opDisplay(e){
         return
     }
     if (e.target.id == 'equal'){
-        result = operate(operator, valueA, valueB)
-        display.innerText = result.toString()
-        valueA = result
-        valueB = ""
+        operateValues()
         operator.operation = ""
         return
     }
     if (!(valueB == "") && e.target.id != 'equal'){
-        console.log('hola')
-        valueA = operate(operator, valueA, valueB)
-        valueB = ""
+        operateValues()
         operator.text = e.target.innerHTML
         operator.operation = e.target.id
         display.innerHTML += e.target.innerText
         console.log(valueA)
     }
-    console.log(valueA, valueB, e.target.innerText)
+}
+
+function operateValues(){
+    result = operate(operator, valueA, valueB).toString()
+    display.innerText = result
+    valueA = result
+    valueB = ""
 }
 
 function deleteLast(){
@@ -111,7 +136,6 @@ function deleteLast(){
     }
 }
 
-
 function clearAll(){
     display.innerHTML = ""
     valueA = ""
@@ -121,8 +145,9 @@ function clearAll(){
     }
     valueB = ""
     result = ""
-    
 }
+
+//*Dark Mode
 
 const buttons = document.querySelectorAll('button')
 const files = document.querySelectorAll('.file')
